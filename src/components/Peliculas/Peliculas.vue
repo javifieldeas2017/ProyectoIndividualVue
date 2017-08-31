@@ -12,6 +12,7 @@ export default {
     name: 'peliculas',
     data() {
         return {
+            urlService: 'http://localhost:51398/api/Peliculas/',
             peliculas: [],
             newMode: true,
             selected: null
@@ -25,7 +26,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:51398/api/Peliculas/',
+                url: _this.urlService,
                 success: function(response) {
                     _this.peliculas = response;
                 }
@@ -35,7 +36,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:51398/api/Peliculas/',
+                url: _this.urlService,
                 data: pelicula,
                 success: function(response) {
                     _this.peliculas.push(response);
@@ -48,7 +49,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'PUT',
-                url: 'http://localhost:51398/api/Peliculas/' + pelicula.Id,
+                url: _this.urlService + pelicula.Id,
                 data: pelicula,
                 success: function(response) {
                     var index = _this.peliculas.findIndex((el) => el.Id == pelicula.Id);
@@ -63,7 +64,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'DELETE',
-                url: 'http://localhost:51398/api/Peliculas/' + pelicula.Id,
+                url: _this.urlService + pelicula.Id,
                 success: function(response) {
                     var index = _this.peliculas.findIndex((el) => el.Id == pelicula.Id);
                     _this.peliculas.splice(index, 1);

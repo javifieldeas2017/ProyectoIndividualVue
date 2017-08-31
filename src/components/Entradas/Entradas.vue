@@ -12,6 +12,7 @@ export default {
     name: 'entradas',
     data() {
         return {
+            urlService: 'http://localhost:51398/api/Entradas/',
             entradas: [],
             newMode: true,
             selected: null
@@ -25,7 +26,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:51398/api/Entradas/',
+                url: _this.urlService,
                 success: function(response) {
                     _this.entradas = response;
                 }
@@ -35,7 +36,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:51398/api/Entradas/',
+                url: _this.urlService,
                 data: entrada,
                 success: function(response) {
                     _this.entradas.push(response);
@@ -48,7 +49,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'PUT',
-                url: 'http://localhost:51398/api/Entradas/' + entrada.Id,
+                url: _this.urlService + entrada.Id,
                 data: entrada,
                 success: function(response) {
                     var index = _this.entradas.findIndex((el) => el.Id == entrada.Id);
@@ -63,7 +64,7 @@ export default {
             let _this = this;
             $.ajax({
                 type: 'DELETE',
-                url: 'http://localhost:51398/api/Entradas/' + entrada.Id,
+                url: _this.urlService + entrada.Id,
                 success: function(response) {
                     var index = _this.entradas.findIndex((el) => el.Id == entrada.Id);
                     _this.entradas.splice(index, 1);
@@ -91,9 +92,7 @@ export default {
         this.unsetSelected();
     }
 }
-
 </script>
 
 <style scoped>
-
 </style>
