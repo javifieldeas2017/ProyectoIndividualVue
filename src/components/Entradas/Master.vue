@@ -36,7 +36,7 @@ export default {
             return this.selected.Id == entrada.Id
         },
         setActive: function(entrada) {
-            this.selected.Id = entrada.Id // no need for Vue.set()
+            this.selected.Id = entrada.Id
         }
     }
 }

@@ -36,7 +36,7 @@ export default {
             return this.selected.Id == pelicula.Id
         },
         setActive: function(pelicula) {
-            this.selected.Id = pelicula.Id // no need for Vue.set()
+            this.selected.Id = pelicula.Id
         }
     }
 }

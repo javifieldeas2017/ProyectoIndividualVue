@@ -43,7 +43,7 @@ export default {
             return this.activeItem == section.name
         },
         setActive: function(section) {
-            this.activeItem = section.name // no need for Vue.set()
+            this.activeItem = section.name
         }
     },
     mounted() {

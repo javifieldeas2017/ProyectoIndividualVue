@@ -33,6 +33,7 @@
             </button>
 
         </div>
+
     </section>
 </template>
 
@@ -51,11 +52,17 @@ export default {
             this.$emit("callAddEntrada", this.selected);//[args] en array para varios args
             this.resetSelected();
         }, updateEntrada() {
-            this.$emit("callUpdateEntrada", this.selected);
-            this.resetSelected();
+            var actualizacion = window.confirm("¿Está seguro de realizar la actualización?")
+            if (actualizacion) {
+                this.$emit("callUpdateEntrada", this.selected);
+                this.resetSelected();
+            }
         }, deleteEntrada() {
-            this.$emit("callDeleteEntrada", this.selected);
-            this.resetSelected();
+            var borrado = window.confirm("¿Está seguro de realizar la actualización?")
+            if (borrado) {
+                this.$emit("callDeleteEntrada", this.selected);
+                this.resetSelected();
+            }
         }, resetSelected: function() {
             this.$emit('nueva');
         }, validateEntrada($event) {
@@ -67,7 +74,7 @@ export default {
             this.isValid = _isValid;
         }
     },
-    updated(){
+    updated() {
         this.validateEntrada();
     }
 }

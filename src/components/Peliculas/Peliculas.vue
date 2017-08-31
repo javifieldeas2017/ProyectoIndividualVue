@@ -28,7 +28,6 @@ export default {
                 url: 'http://localhost:51398/api/Peliculas/',
                 success: function(response) {
                     _this.peliculas = response;
-                    console.log(response);
                 }
             });
         },
@@ -79,7 +78,7 @@ export default {
         },
         unsetSelected: function() {
             this.newMode = true;
-            this.selected = { Titulo: "", Pais: "", Duracion: "", Genero: [] }
+            this.selected = { Titulo: "", Pais: "", Duracion: "", Genero: "", Director:"", Sinopsis:"" }
         },
         setSelected: function(pelicula) {
             this.newMode = false;
