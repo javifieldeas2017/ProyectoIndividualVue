@@ -1,14 +1,14 @@
 <template>
     <aside id="master" class="col-xs-5 col-sm-5">
         <div>
-            <button class="btn btn-primary" @click="nueva" title="Haga click aquí para crear una entrada">
+            <button class="btn btn-primary" @click="nueva" title="Haga click aquí para crear una pelicula">
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
-            <h1>Entradas</h1>
+            <h1>Películas</h1>
         </div>
         <ul class="list-group">
-            <li class="list-group-item" v-for="entrada in entradas" :key="entrada.Id" @click="triggerSelect(entrada,$event) + setActive(entrada)" :class="{ active: isActive(entrada)}" title="Seleccione una entrada para actualizar o borrar">
-                {{entrada.Pelicula}}
+            <li class="list-group-item" v-for="pelicula in peliculas" :key="pelicula.Id" @click="triggerSelect(pelicula,$event) + setActive(pelicula)" :class="{ active: isActive(pelicula)}" title="Seleccione una pelicula para actualizar o borrar">
+                {{pelicula.Titulo}}
             </li>
         </ul>
     </aside>
@@ -18,7 +18,7 @@
 
 export default {
     name: 'master',
-    props: ['entradas','selected'],
+    props: ['peliculas','selected'],
     data() {
         return {
         };
@@ -26,17 +26,17 @@ export default {
     methods: {
         nueva: function() {
             this.$emit('nueva');
-            var vacio = {}; vacio.Id = "";
+            var vacio = {}; vacio.Id="";
             this.setActive(vacio);
         },
-        triggerSelect: function(entrada, event) {
-            this.$emit('selected', entrada);
+        triggerSelect: function(pelicula, event) {
+            this.$emit('selected', pelicula);
         },
-        isActive: function(entrada) {
-            return this.selected.Id == entrada.Id
+        isActive: function(pelicula) {
+            return this.selected.Id == pelicula.Id
         },
-        setActive: function(entrada) {
-            this.selected.Id = entrada.Id // no need for Vue.set()
+        setActive: function(pelicula) {
+            this.selected.Id = pelicula.Id // no need for Vue.set()
         }
     }
 }
@@ -47,6 +47,7 @@ export default {
 button {
     margin-bottom: 20px;
 }
+
 
 
 

@@ -1,7 +1,7 @@
 <template>
-    <div id="entradas">
-        <master :entradas="entradas" :selected="selected" @nueva="unsetSelected" @selected="setSelected"></master>
-        <detail :newMode="newMode" :selected="selected" @callAddEntrada="addEntrada" @callUpdateEntrada="updateEntrada" @callDeleteEntrada="deleteEntrada"></detail>
+    <div id="peliculas">
+        <master :peliculas="peliculas" :selected="selected" @nueva="unsetSelected" @selected="setSelected"></master>
+        <detail :newMode="newMode" :selected="selected" @callAddPelicula="addPelicula" @callUpdatePelicula="updatePelicula" @callDeletePelicula="deletePelicula"></detail>
     </div>
 </template>
 
@@ -9,10 +9,10 @@
 import master from './Master.vue'
 import detail from './Detail.vue'
 export default {
-    name: 'entradas',
+    name: 'peliculas',
     data() {
         return {
-            entradas: [],
+            peliculas: [],
             newMode: true,
             selected: null
         };
@@ -21,52 +21,53 @@ export default {
         master, detail
     },
     methods: {
-        getEntradas: function() {
+        getPeliculas: function() {
             let _this = this;
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:51398/api/Entradas/',
+                url: 'http://localhost:51398/api/Peliculas/',
                 success: function(response) {
-                    _this.entradas = response;
+                    _this.peliculas = response;
+                    console.log(response);
                 }
             });
         },
-        addEntrada: function(entrada) {
+        addPelicula: function(pelicula) {
             let _this = this;
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:51398/api/Entradas/',
-                data: entrada,
+                url: 'http://localhost:51398/api/Peliculas/',
+                data: pelicula,
                 success: function(response) {
-                    _this.entradas.push(response);
+                    _this.peliculas.push(response);
                     _this.unsetSelected();
                 },
                 error: this.error
             });
         },
-        updateEntrada: function(entrada) {
+        updatePelicula: function(pelicula) {
             let _this = this;
             $.ajax({
                 type: 'PUT',
-                url: 'http://localhost:51398/api/Entradas/' + entrada.Id,
-                data: entrada,
+                url: 'http://localhost:51398/api/Peliculas/' + pelicula.Id,
+                data: pelicula,
                 success: function(response) {
-                    var index = _this.entradas.findIndex((el) => el.Id == entrada.Id);
-                    _this.entradas[index] = entrada;
-                    _this.entradas = JSON.parse(JSON.stringify(_this.entradas))
+                    var index = _this.peliculas.findIndex((el) => el.Id == pelicula.Id);
+                    _this.peliculas[index] = pelicula;
+                    _this.peliculas = JSON.parse(JSON.stringify(_this.peliculas))
                     _this.unsetSelected();
                 },
                 error: this.error
             });
         },
-        deleteEntrada: function(entrada) {
+        deletePelicula: function(pelicula) {
             let _this = this;
             $.ajax({
                 type: 'DELETE',
-                url: 'http://localhost:51398/api/Entradas/' + entrada.Id,
+                url: 'http://localhost:51398/api/Peliculas/' + pelicula.Id,
                 success: function(response) {
-                    var index = _this.entradas.findIndex((el) => el.Id == entrada.Id);
-                    _this.entradas.splice(index, 1);
+                    var index = _this.peliculas.findIndex((el) => el.Id == pelicula.Id);
+                    _this.peliculas.splice(index, 1);
                     _this.selected = null;
                     _this.unsetSelected();
                 },
@@ -78,16 +79,16 @@ export default {
         },
         unsetSelected: function() {
             this.newMode = true;
-            this.selected = { Pelicula: "", Fila: "", Butaca: "", Precio: "", Online: false }
+            this.selected = { Titulo: "", Pais: "", Duracion: "", Genero: [] }
         },
-        setSelected: function(entrada) {
+        setSelected: function(pelicula) {
             this.newMode = false;
-            this.selected = JSON.parse(JSON.stringify(entrada));
+            this.selected = JSON.parse(JSON.stringify(pelicula));
         }
 
     },
     created() {
-        this.getEntradas();
+        this.getPeliculas();
         this.unsetSelected();
     }
 }

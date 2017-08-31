@@ -8,6 +8,7 @@
 
 <script>
 import entradas from './Entradas/Entradas.vue'
+import peliculas from './Peliculas/Peliculas.vue'
 export default {
     name: 'container',
     props: ['selectedSection'],
@@ -16,7 +17,7 @@ export default {
         };
     },
     components: {
-        entradas
+        entradas,peliculas
     }
 }
 </script>

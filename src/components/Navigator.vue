@@ -11,8 +11,8 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li v-for="section in sections" @click="triggerSelection(section,$event)">
-                        <a>{{section.titulo}}</a>
+                    <li v-for="section in sections" :key="section.name" @click="triggerSelection(section,$event) + setActive(section)" :class="{ active: isActive(section)}">
+                        <a><span :class="section.icono"></span> {{section.titulo}}</a>
                     </li>
                 </ul>
             </div>
@@ -26,22 +26,24 @@ export default {
     name: 'navigator',
     data() {
         return {
-            sections: [{ name: "entradas", titulo: "Entradas" }, { name: "peliculas", titulo: "Películas" }]
+            sections: [{ name: "peliculas", titulo: "Películas", icono:"glyphicon glyphicon-film" }, { name: "entradas", titulo: "Entradas", icono:"glyphicon glyphicon-shopping-cart" }],
+            activeItem: ""
         };
     },
     methods: {
         triggerSelection(clickedSelection, event) {
             let section = clickedSelection;
-            $(".active").removeClass("active");
             if (!section) {
                 section = {};
                 section.name = this.sections[0].name;
-                $("nav li").eq(0).addClass("active");
-            } else {
-                console.log($(event.target));
-                $(event.target).parent().addClass("active");
             }
             this.$emit("sectionClicked", section.name);//[args] en array para varios
+        },
+        isActive: function(section) {
+            return this.activeItem == section.name
+        },
+        setActive: function(section) {
+            this.activeItem = section.name // no need for Vue.set()
         }
     },
     mounted() {
@@ -70,14 +72,16 @@ nav {
     background-color: #286090;
 }
 
-.active,.navbar-inverse .navbar-nav>li>a:hover,.navbar-brand:hover {
-/*     background-color: #FFF;
+.active,
+.navbar-inverse .navbar-nav>li>a:hover,
+.navbar-brand:hover {
+    /*     background-color: #FFF;
     font-weight: bold;
     color:#286090; */
 }
 
 .navbar-brand {
-    font-family: ubuntu;
+    font-family: Audiowide;
     color: #FFF;
 }
 </style>

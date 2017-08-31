@@ -28,7 +28,11 @@ export default {
 </script>
 
 <style>
-    li:hover{
-        cursor:pointer;
-    }
+* {
+  font-family: Montserrat;
+}
+
+li:hover {
+  cursor: pointer;
+}
 </style>
